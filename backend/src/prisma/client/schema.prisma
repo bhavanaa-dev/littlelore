@@ -1,0 +1,20 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SavedBook {
+  id            String  @id // use Open Library id or curated id
+  title         String
+  author        String?
+  coverUrl      String?
+  openLibraryId String? @unique // optional external identifier
+  external      Boolean @default(false)
+}

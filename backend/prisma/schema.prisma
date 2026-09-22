@@ -1,0 +1,34 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SavedBook {
+  id            String @id // use Open Library id or curated id
+  title         String
+  author        String?
+  coverUrl      String?
+  openLibraryId String? @unique // optional external identifier
+  external      Boolean @default(false)
+}
+
+model Book {
+  id            String  @id // curated id, e.g. curated-little-prince
+  title         String
+  author        String?
+  category      String?
+  coverUrl      String?
+  description   String?
+  year          Int?
+  isbn          String?
+  openLibraryId String?
+  readUrl       String?
+  featured      Boolean @default(false)
+  external      Boolean @default(false)
+}
